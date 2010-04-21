@@ -16,7 +16,7 @@
   "True if this request matches the supplied method."
   [method request]
   (let [request-method (request :request-method)
-        form-method    (-> request :form-params :_method)]
+        form-method    (get-in request [:form-params "_method"])]
     (or (nil? method)
         (if (and form-method (= request-method :post))
           (= (.toUpperCase (name method)) form-method)
@@ -111,7 +111,7 @@
   [path args & body]
   (compile-route nil path args body))
 
-(defn- keywords->middleware
+(defn- keyword->middleware
   "Turn a keyword into a wrapper function symbol.
   e.g. :test => wrap-test
        (:test x) => (wrap-test x)"
@@ -134,7 +134,7 @@
     => (wrap! foo (wrap-session cookie-store))
     => (def foo (wrap-session foo cookie-store))"
   [handler & funcs]
-  (let [funcs (keywords->middleware funcs)]
+  (let [funcs (map keyword->middleware funcs)]
     `(alter-var-root
        (var ~handler)
        (constantly (-> ~handler ~@funcs)))))

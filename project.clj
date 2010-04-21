@@ -5,6 +5,6 @@
                  [org.clojure/clojure-contrib "1.2.0-SNAPSHOT"]
                  [org.clojars.paraseba/clout "0.2.0-SNAPSHOT"]
                  [org.clojars.paraseba/ring-core "0.2.0"]]
-  :dev-dependencies [[lein-clojars "0.5.0-SNAPSHOT"]
+  :dev-dependencies [[lein-clojars "0.5.0"]
                      [org.clojars.paraseba/ring-jetty-adapter "0.2.0"]
                      [org.clojars.paraseba/hiccup "0.2.3"]])
